@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BN Map Explorer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Textos: data-i18n = textContent, data-i18n-html = innerHTML, data-i18n-title / data-i18n-ph = atributos (ver I18N en app.js) -->
+
+<!-- Load screen -->
+<section id="intro">
+  <div class="lang-corner"><select class="lang" aria-label="Language"></select></div>
+  <div class="intro-box">
+    <div class="brand">[ BN MAP EXPLORER ]</div>
+    <h1 data-i18n-html="intro.title"></h1>
+    <p class="muted" data-i18n-html="intro.sub"></p>
+    <label class="btn big" for="pick" data-i18n="intro.pick"></label>
+    <input id="pick" type="file" webkitdirectory directory multiple hidden>
+    <div id="drop" class="drop" data-i18n="intro.drop"></div>
+    <div id="worlds" class="worlds" hidden></div>
+    <div id="intro-status" class="status"></div>
+    <p class="note" data-i18n="intro.privacy"></p>
+    <details class="help">
+      <summary data-i18n="intro.where"></summary>
+      <p data-i18n-html="intro.whereText"></p>
+    </details>
+  </div>
+</section>
+
+<!-- Explorer -->
+<section id="app" hidden>
+  <aside id="side">
+    <header>
+      <div class="brand small">[ BN MAP EXPLORER ]</div>
+      <div id="world-name" class="world"></div>
+      <div id="world-meta" class="muted tiny"></div>
+    </header>
+
+    <div class="controls">
+      <label><span data-i18n="ui.lang"></span> <select class="lang"></select></label>
+      <label><span data-i18n="ui.char"></span> <select id="char"></select></label>
+      <label><span data-i18n="ui.graphics"></span> <select id="tileset"></select></label>
+      <div class="row">
+        <span data-i18n="ui.zlevel"></span>
+        <button id="zdown" data-i18n-title="ui.zdown">▼</button>
+        <span id="zval" class="z">0</span>
+        <button id="zup" data-i18n-title="ui.zup">▲</button>
+        <button id="center" data-i18n-title="ui.center">@</button>
+      </div>
+      <label><span data-i18n="ui.fog"></span>
+        <select id="fog">
+          <option value="dim" data-i18n="fog.dim"></option>
+          <option value="seen" data-i18n="fog.seen"></option>
+          <option value="all" data-i18n="fog.all"></option>
+        </select>
+      </label>
+      <div class="toggles">
+        <label><input type="checkbox" id="t-cities" checked> <span data-i18n="t.cities"></span></label>
+        <label><input type="checkbox" id="t-missions" checked> <span data-i18n="t.missions"></span></label>
+        <label><input type="checkbox" id="t-npcs" checked> <span data-i18n="t.npcs"></span></label>
+        <label><input type="checkbox" id="t-notes" checked> <span data-i18n="t.notes"></span></label>
+        <label><input type="checkbox" id="t-radios"> <span data-i18n="t.radios"></span></label>
+        <label><input type="checkbox" id="t-hordes"> <span data-i18n="t.hordes"></span></label>
+        <label><input type="checkbox" id="t-grid"> <span data-i18n="t.grid"></span></label>
+      </div>
+    </div>
+
+    <nav class="tabs">
+      <button data-tab="missions" class="on" data-i18n="tab.missions"></button>
+      <button data-tab="cities" data-i18n="tab.cities"></button>
+      <button data-tab="places" data-i18n="tab.places"></button>
+      <button data-tab="npcs" data-i18n="tab.npcs"></button>
+      <button data-tab="notes" data-i18n="tab.notes"></button>
+    </nav>
+    <input id="filter" type="search" data-i18n-ph="ui.filter">
+    <div id="list" class="list"></div>
+    <footer><button id="back" class="link" data-i18n="ui.back"></button></footer>
+  </aside>
+
+  <main id="view">
+    <canvas id="map"></canvas>
+    <div id="tip" hidden></div>
+    <div id="legend" class="muted tiny" data-i18n="ui.legend"></div>
+    <div id="info"></div>
+  </main>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+<script src="terrain_db.js"></script>
+<script src="tilesets/udp.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
